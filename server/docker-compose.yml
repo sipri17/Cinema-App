@@ -1,0 +1,21 @@
+version: '3.6'
+services:
+  users-mongodb:
+    build: ./services/users-mongodb
+    ports :
+      - "4001:4001"
+    environment:
+      URI: ${URI}
+  app-service:
+    build: ./services/app-postgres
+    ports:
+      - "4002:4002"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgres://postgres:4bJ3uUQecjBusix6@db.hjuxzsxuriteowdeqcji.supabase.co:6543/postgres
+  orchestrator:
+    build: ./orchestrator
+    ports:
+      - "4000:4000"
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
